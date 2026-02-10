@@ -8,16 +8,26 @@ use Illuminate\Http\Request;
 
 class InventarisController extends Controller
 {
-    public function index()
+        public function index(Request $request)
     {
-        $inventaris = Inventaris::with(['category', 'user'])->get();
-        return view('user.inventaris.index', compact('inventaris'));
-    }
+        $q = trim((string) $request->query('q', ''));
 
-    public function create()
-    {
-        $categories = Category::all();
-        return view('user.inventaris.create', compact('categories'));
+        $inventaris = \App\Models\Inventaris::with('category')
+            ->when($q !== '', function ($query) use ($q) {
+                $terms = preg_split('/\s+/', $q); // pecah per kata
+
+                foreach ($terms as $term) {
+                    $query->where(function ($sub) use ($term) {
+                        $sub->where('lokasi', 'like', "%{$term}%")
+                            ->orWhere('nama_perangkat', 'like', "%{$term}%")
+                            ->orWhere('kode', 'like', "%{$term}%");
+                    });
+                }
+            })
+            ->latest()
+            ->get();
+
+        return view('user.inventaris.index', compact('inventaris', 'q'));
     }
 
     public function store(Request $request)
