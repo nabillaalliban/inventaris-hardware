@@ -76,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/pengembalian/{id}/proses', [PeminjamanController::class, 'pengembalianForm'])->name('user.pengembalian.form');
         Route::put('/user/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('user.pengembalian.update');
 
+        
+
         // Export PDF
         Route::get('/inventaris/export-pdf', [InventarisController::class, 'exportPdf'])
             ->name('inventaris.exportPdf');

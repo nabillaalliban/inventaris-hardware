@@ -3,21 +3,26 @@
 
 <a href="<?php echo e(route('user.inventaris.create')); ?>" class="btn">+ Tambah Data</a>
 
-  <form method="GET" action="<?php echo e(route('user.inventaris.index')); ?>" style="display:flex; gap:10px; align-items:center;">
-    <input
-      type="text"
-      name="q"
-      value="<?php echo e(request('q')); ?>"
-      placeholder="Cari lokasi / perangkat / kode (contoh: lab 201 kode 1)"
-      class="input"
-      style="min-width:320px;"
-    >
-    <button class="btn btn-primary" type="submit">Search</button>
+ <div class="toolbar">
+  <div class="searchbar">
+    <form method="GET" action="<?php echo e(route('user.inventaris.index')); ?>" class="searchbox">
+      <span style="font-size:16px;">🔎</span>
 
-    <?php if(request('q')): ?>
-      <a href="<?php echo e(route('user.inventaris.index')); ?>" class="btn btn-secondary">Reset</a>
-    <?php endif; ?>
-  </form>
+      <input
+        type="text"
+        name="q"
+        value="<?php echo e(request('q')); ?>"
+        placeholder="Cari lokasi / perangkat / kode (contoh: lab 201 kode 1)"
+        class="search-input"
+      >
+
+      <button class="btn btn-primary btn-sm" type="submit">Search</button>
+
+      <?php if(request('q')): ?>
+        <a href="<?php echo e(route('user.inventaris.index')); ?>" class="btn btn-secondary btn-sm">Reset</a>
+      <?php endif; ?>
+    </form>
+  </div>
 </div>
 
 

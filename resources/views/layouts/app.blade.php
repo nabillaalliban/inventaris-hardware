@@ -5,20 +5,26 @@
     <title>Inventaris Hardware</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
 <style>
+
+
 /* ===== NAVBAR + SIDEBAR (lebih modern) ===== */
 .navbar{
-  height: 64px;
-  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
-  padding: 0 22px;
+  height: 72px;
+  background: linear-gradient(90deg, #BDA1FF, #a78bfa);
+  margin: 18px 24px 0 24px;   /* jarak atas & kiri kanan */
+  padding: 0 28px;
   color:white;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, .18);
+  border-radius: 24px;        /* atas & bawah rounded */
+  box-shadow: 0 18px 40px rgba(139, 92, 246, .25);
   position: sticky;
-  top: 0;
+  top: 10px;
   z-index: 50;
 }
+
+
 
 .brand{
   display:flex;
@@ -44,12 +50,14 @@
 }
 
 .user-chip{
-  padding:8px 12px;
+  padding:8px 14px;
   border-radius:999px;
-  background: rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.22);
-  font-weight:700;
+  background: rgba(255,255,255,.20);
+  backdrop-filter: blur(4px);
+  border:1px solid rgba(255,255,255,.35);
+  font-weight:800;
 }
+
 
 .btn-logout{
   padding:8px 12px;
@@ -59,6 +67,30 @@
   color:white;
   font-weight:700;
   cursor:pointer;
+}
+.searchbox{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(167,139,250,0.25);
+  border-radius: 999px;      /* pill */
+  padding: 6px 10px;
+  box-shadow: 0 8px 20px rgba(76, 29, 149, 0.08);
+  max-width: 420px;
+  width: 100%;
+}
+.searchbox .search-input{
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  padding: 8px 6px;
+}
+.searchbox button{
+  border-radius: 999px;
+  padding: 8px 16px;
 }
 
 .layout{

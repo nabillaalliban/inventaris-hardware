@@ -7,14 +7,33 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class InventarisController extends Controller
+{public function index(Request $request)
 {
-        public function index(Request $request)
-    {
-        $q = trim((string) $request->query('q', ''));
+    $q = trim((string) $request->query('q', ''));
 
-        $inventaris = \App\Models\Inventaris::with('category')
-            ->when($q !== '', function ($query) use ($q) {
-                $terms = preg_split('/\s+/', $q); // pecah per kata
+    $inventaris = Inventaris::with('category')
+        ->when($q !== '', function ($query) use ($q) {
+
+            $qLower = mb_strtolower($q);
+
+            // 1) Tangkap pola: "kode 123" atau "kode: 123"
+            $kodeValue = null;
+            if (preg_match('/\bkode\b\s*[:\-]?\s*([a-z0-9\-]+)/i', $q, $m)) {
+                $kodeValue = $m[1];
+            }
+
+            // 2) Buang kata pemicu biar gak jadi term wajib
+            $clean = preg_replace('/\bkode\b\s*[:\-]?\s*[a-z0-9\-]+/i', '', $q);
+            $clean = trim($clean);
+
+            // 3) Kalau ada "kode X", filter khusus ke kolom kode
+            if ($kodeValue) {
+                $query->where('kode', 'like', "%{$kodeValue}%");
+            }
+
+            // 4) Sisa kata dicari ke lokasi/nama/kode (global)
+            if ($clean !== '') {
+                $terms = preg_split('/\s+/', $clean);
 
                 foreach ($terms as $term) {
                     $query->where(function ($sub) use ($term) {
@@ -23,12 +42,21 @@ class InventarisController extends Controller
                             ->orWhere('kode', 'like', "%{$term}%");
                     });
                 }
-            })
-            ->latest()
-            ->get();
+            }
+        })
+        ->latest()
+        ->get();
 
-        return view('user.inventaris.index', compact('inventaris', 'q'));
+    return view('user.inventaris.index', compact('inventaris', 'q'));
+}
+
+    public function create()
+    {
+        $categories = Category::orderBy('nama_kategori')->get();
+
+        return view('user.inventaris.create', compact('categories'));
     }
+
 
     public function store(Request $request)
     {
