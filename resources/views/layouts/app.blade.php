@@ -447,6 +447,10 @@
                    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                    📊 Dashboard
                 </a>
+                <li><a href="{{ route('admin.items.index') }}">📦 Data Barang</a></li>
+<li><a href="{{ route('admin.loans.dashboard') }}">📊 Statistik Peminjaman</a></li>
+<li><a href="{{ route('admin.loans.index') }}">📋 Riwayat Peminjaman</a></li>
+
             </li>
         @endif
 
@@ -465,8 +469,15 @@
                 </a>
             </li>
 
-            <li><a href="{{ route('user.peminjaman.index') }}">📌 Peminjaman</a></li>
-            <li><a href="{{ route('user.pengembalian.index') }}">↩️ Pengembalian</a></li>
+            <li><a href="{{ route('user.items.index') }}">📦 Barang</a></li>
+@if(auth()->user()->role == 'admin')
+  <li><a href="{{ route('admin.cart.index') }}">🛒 Keranjang</a></li>
+@endif
+<li><a href="{{ route('user.loans.index') }}">📌 Riwayat Peminjaman</a></li>
+<li><a href="{{ route('user.loans.stats') }}">📊 Statistik</a></li>
+<li><a href="{{ route('user.inbounds.index') }}">📥 Barang Masuk</a></li>
+
+
 
             <li>
                 <a href="{{ route('inventaris.exportPdf') }}"

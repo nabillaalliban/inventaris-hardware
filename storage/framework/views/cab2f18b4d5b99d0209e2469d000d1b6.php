@@ -447,6 +447,10 @@
                    class="<?php echo e(request()->routeIs('admin.dashboard') ? 'active' : ''); ?>">
                    📊 Dashboard
                 </a>
+                <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Data Barang</a></li>
+<li><a href="<?php echo e(route('admin.loans.dashboard')); ?>">📊 Statistik Peminjaman</a></li>
+<li><a href="<?php echo e(route('admin.loans.index')); ?>">📋 Riwayat Peminjaman</a></li>
+
             </li>
         <?php endif; ?>
 
@@ -465,8 +469,15 @@
                 </a>
             </li>
 
-            <li><a href="<?php echo e(route('user.peminjaman.index')); ?>">📌 Peminjaman</a></li>
-            <li><a href="<?php echo e(route('user.pengembalian.index')); ?>">↩️ Pengembalian</a></li>
+            <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Barang</a></li>
+<?php if(auth()->user()->role == 'admin'): ?>
+  <li><a href="<?php echo e(route('admin.cart.index')); ?>">🛒 Keranjang</a></li>
+<?php endif; ?>
+<li><a href="<?php echo e(route('user.loans.index')); ?>">📌 Riwayat Peminjaman</a></li>
+<li><a href="<?php echo e(route('user.loans.stats')); ?>">📊 Statistik</a></li>
+<li><a href="<?php echo e(route('user.inbounds.index')); ?>">📥 Barang Masuk</a></li>
+
+
 
             <li>
                 <a href="<?php echo e(route('inventaris.exportPdf')); ?>"
