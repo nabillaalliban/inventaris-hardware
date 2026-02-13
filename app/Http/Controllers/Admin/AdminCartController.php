@@ -89,58 +89,43 @@ class AdminCartController extends Controller
         return back()->with('success', 'Item dihapus dari keranjang.');
     }
 
-    public function checkout(Request $request)
-    {
-        $request->validate([
-            'peminjam_tipe' => 'required|in:mahasiswa,dosen,bidang1,bidang2,bidang3',
-            'nama_peminjam' => 'required',
-            'keterangan' => 'nullable',
-            'due_date' => 'required|date',
-        ]);
+   public function checkout(Request $request)
+{
+   $request->validate([
+  'tanggal_pinjam' => 'required|date', // atau tanggal_pengajuan
+]);
 
-        $cart = $this->activeCart()->load('items.item');
 
-        if ($cart->items->count() === 0) {
-            return back()->with('error', 'Keranjang masih kosong.');
-        }
+    $cart = Cart::with('items.item')
+        ->where('user_id', auth()->id())
+        ->where('status','active')
+        ->firstOrFail();
 
-        DB::transaction(function () use ($request, $cart) {
-
-            // validasi stok sekali lagi
-            foreach ($cart->items as $ci) {
-                if ($ci->qty > $ci->item->stok) {
-                    throw new \Exception("Stok {$ci->item->nama_barang} tidak cukup.");
-                }
-            }
-
-            // buat loan (langsung aktif/approved karena admin yang ajukan)
-            $loan = LoanRequest::create([
-                'user_id'        => auth()->id(),       // admin pencatat
-                'status'         => 'approved',
-                'tanggal_pinjam' => now()->toDateString(),
-                'due_date'       => $request->due_date,
-                'catatan'        => $request->keterangan,
-                'approved_by'    => auth()->id(),
-                'peminjam_tipe'  => $request->peminjam_tipe,
-                'nama_peminjam'  => $request->nama_peminjam,
-            ]);
-
-            foreach ($cart->items as $ci) {
-                LoanRequestItem::create([
-                    'loan_request_id' => $loan->id,
-                    'item_id' => $ci->item_id,
-                    'qty' => $ci->qty,
-                ]);
-
-                // kurangi stok
-                $ci->item->decrement('stok', $ci->qty);
-            }
-
-            // cart selesai
-            $cart->update(['status' => 'checked_out']);
-        });
-
-        return redirect()->route('admin.loans.index')->with('success', 'Peminjaman berhasil dibuat dari keranjang.');
+    if ($cart->items->isEmpty()) {
+        return back()->withErrors(['Keranjang kosong.']);
     }
+
+    $loan = LoanRequest::create([
+        'user_id' => auth()->id(),
+        'due_date' => $request->due_date,
+        'status' => 'pending',
+    ]);
+
+    foreach ($cart->items as $row) {
+        LoanRequestItem::create([
+            'loan_request_id' => $loan->id,
+            'item_id' => $row->item_id,
+            'qty' => $row->qty,
+        ]);
+    }
+
+    $cart->items()->delete();
+
+    return redirect()->route('admin.loans.index')
+        ->with('success','Pengajuan berhasil dikirim.');
+}
+
+
+
 }
 

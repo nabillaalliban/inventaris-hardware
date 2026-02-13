@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-                Schema::create('carts', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('carts', function (\Illuminate\Database\Schema\Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade'); // admin juga user
         $table->string('status')->default('active'); // active, checked_out

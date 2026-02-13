@@ -45,7 +45,6 @@ class ItemCatalogController extends Controller
             'stok'        => $request->stok,
             'tanggal'     => $request->tanggal,
             'foto'        => $path,
-            'user_id'     => auth()->id(), // kalau tabel items punya user_id
         ]);
 
         return redirect()->route('user.items.index')->with('success', 'Barang berhasil ditambahkan.');
