@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LoanRequest; // TAMBAHKAN INI
 
 class LoanController extends Controller {
+
   public function index(){
     $loans = LoanRequest::with('items.item.category')
       ->where('user_id',auth()->id())
@@ -19,4 +21,3 @@ class LoanController extends Controller {
     return view('user.loans.stats', compact('returned','notReturned'));
   }
 }
-

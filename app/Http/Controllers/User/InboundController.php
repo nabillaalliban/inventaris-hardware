@@ -4,8 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ItemInbound;
+use App\Models\Item;
+use Illuminate\Support\Facades\DB;
 
 class InboundController extends Controller {
+
   public function index(){
     $logs = ItemInbound::with('item')->where('user_id',auth()->id())->latest()->get();
     return view('user.inbounds.index', compact('logs'));
@@ -38,4 +42,3 @@ class InboundController extends Controller {
     return redirect()->route('user.inbounds.index')->with('success','Barang masuk berhasil');
   }
 }
-

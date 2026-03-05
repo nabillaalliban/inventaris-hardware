@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\LoanRequest;   // TAMBAHKAN INI
 
-class LoanAdminController extends Controller
+class LoanController extends Controller
 {
   public function dashboard()
   {

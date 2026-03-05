@@ -410,6 +410,76 @@
   .dash-grid{ grid-template-columns: 1fr; }
 }
 
+.page-header h2{
+    color:#2e1065;
+    font-weight:800;
+    margin:0;
+}
+
+.page-header p{
+    color:#6b21a8;
+    margin-top:5px;
+    font-weight:500;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:25px;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.stat-card span{
+    color:#6b21a8;
+    font-weight:600;
+    font-size:14px;
+}
+
+.stat-card h1{
+    margin-top:10px;
+    font-size:32px;
+    color:#2e1065;
+}
+
+.top-items{
+    background:white;
+    margin-top:30px;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.top-items h3{
+    margin-bottom:15px;
+    color:#2e1065;
+}
+
+.item-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+}
+
+.badge{
+    background:#ede9fe;
+    color:#5b21b6;
+    padding:5px 12px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.empty{
+    color:#777;
+}
+
 
 
 </style>
@@ -448,9 +518,8 @@
                    📊 Dashboard
                 </a>
                 <li><a href="{{ route('admin.items.index') }}">📦 Data Barang</a></li>
-<li><a href="{{ route('admin.loans.dashboard') }}">📊 Statistik Peminjaman</a></li>
-<li><a href="{{ route('admin.loans.index') }}">📋 Riwayat Peminjaman</a></li>
-
+                <li><a href="{{ route('admin.loans.dashboard') }}">📊 Statistik Peminjaman</a></li>
+                <li><a href="{{ route('admin.loans.index') }}">📋 Riwayat Peminjaman</a></li>
             </li>
         @endif
 
