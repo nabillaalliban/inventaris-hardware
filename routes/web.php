@@ -1,120 +1,102 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\InventarisController;
-use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\User\CartController;
-use App\Http\Controllers\User\LoanController;
-use App\Http\Controllers\User\InboundController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\InventarisController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
-use App\Http\Controllers\Admin\AdminCartController;
-use App\Http\Controllers\User\ItemCatalogController;
+use App\Http\Controllers\Admin\InboundController;
 use App\Http\Controllers\Admin\LoanAdminController;
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\LoanController;
+use App\Http\Controllers\User\ItemCatalogController;
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+/*
+|--------------------------------------------------------------------------
+| Redirect Awal
+|--------------------------------------------------------------------------
+*/
+Route::get('/', fn() => redirect('/login'));
 
+require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])->group(function () {
 
-    // Redirect setelah login
-    // Route::get('/dashboard', function () {
-    //     if (auth()->user()->role === 'admin') {
-    //         return redirect()->route('admin.dashboard');
-    //     }
+    // DASHBOARD
+    Route::get('/dashboard', function () {
+        return auth()->user()->role === 'admin'
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('user.items.index');
+    })->name('dashboard');
 
-    //     return redirect()->route('user.inventaris.index');
-    // })->name('dashboard');
 
-    // ================= ADMIN =================
-    Route::middleware(['role:admin'])->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])
-            ->name('admin.dashboard');
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('admin')
+        ->middleware(['role:admin'])
+        ->name('admin.')
+        ->group(function () {
 
-              Route::get('/admin/loan-dashboard', [LoanAdminController::class,'dashboard'])->name('admin.loans.dashboard');
-  Route::get('/admin/loans', [LoanAdminController::class,'index'])->name('admin.loans.index');
+        Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
-  Route::post('/admin/loans/{id}/approve', [LoanAdminController::class,'approve'])->name('admin.loans.approve');
-  Route::post('/admin/loans/{id}/reject', [LoanAdminController::class,'reject'])->name('admin.loans.reject');
-  Route::put('/admin/loans/{id}/returned', [LoanAdminController::class,'markReturned'])->name('admin.loans.returned');
+        // INVENTARIS & CATEGORY
+        Route::resource('inventaris', InventarisController::class);
+        Route::resource('categories', CategoryController::class);
 
-   Route::get('/admin/items', [AdminItemController::class,'index'])->name('admin.items.index');
+        // ITEMS
+        Route::resource('items', AdminItemController::class);
 
-   Route::get('/admin/cart', [AdminCartController::class,'index'])->name('admin.cart.index');
-Route::post('/admin/cart/add', [AdminCartController::class,'add'])->name('admin.cart.add');
-Route::put('/admin/cart/{id}', [AdminCartController::class,'update'])->name('admin.cart.update');
-Route::delete('/admin/cart/{id}', [AdminCartController::class,'remove'])->name('admin.cart.remove');
-Route::post('/admin/cart/checkout', [AdminCartController::class,'checkout'])->name('admin.cart.checkout');
-    });
+        // INBOUND
+        Route::get('/inbounds', [InboundController::class,'index'])->name('inbounds.index');
+        Route::get('/inbounds/create', [InboundController::class,'create'])->name('inbounds.create');
+        Route::post('/inbounds', [InboundController::class,'store'])->name('inbounds.store');
 
-    // ================= USER =================
-    Route::middleware(['role:user'])->group(function () {
-        Route::get('/user/inventaris', [InventarisController::class, 'index'])
-            ->name('user.inventaris.index');
+        // LOANS ADMIN
+        Route::get('/loans', [LoanAdminController::class,'index'])->name('loans.index');
+        Route::get('/loan-dashboard', [LoanAdminController::class,'dashboard'])->name('loans.dashboard');
 
-        Route::get('/user/inventaris/create', [InventarisController::class, 'create'])
-            ->name('user.inventaris.create');
+        Route::post('/loans/{id}/approve', [LoanAdminController::class,'approve'])->name('loans.approve');
+        Route::post('/loans/{id}/reject', [LoanAdminController::class,'reject'])->name('loans.reject');
+        Route::put('/loans/{id}/returned', [LoanAdminController::class,'markReturned'])->name('loans.returned');
 
-        Route::post('/user/inventaris', [InventarisController::class, 'store'])
-            ->name('user.inventaris.store');
-
-        Route::get('/user/inventaris/{id}/edit', [InventarisController::class, 'edit'])
-            ->name('user.inventaris.edit');
-
-        Route::put('/user/inventaris/{id}', [InventarisController::class, 'update'])
-            ->name('user.inventaris.update');
-
-        Route::delete('/user/inventaris/{id}', [InventarisController::class, 'destroy'])
-            ->name('user.inventaris.destroy');
-
-        // Categories
-        Route::get('/user/categories', [CategoryController::class, 'index'])
-            ->name('user.categories.index');
-
-        Route::get('/user/categories/create', [CategoryController::class, 'create'])
-            ->name('user.categories.create');
-
-        Route::post('/user/categories', [CategoryController::class, 'store'])
-            ->name('user.categories.store');
-
-        Route::get('/user/categories/{id}/edit', [CategoryController::class, 'edit'])
-            ->name('user.categories.edit');
-
-        Route::put('/user/categories/{id}', [CategoryController::class, 'update'])
-            ->name('user.categories.update');
-
-        Route::delete('/user/categories/{id}', [CategoryController::class, 'destroy'])
-            ->name('user.categories.destroy');
-
-        // ===== PEMINJAMAN =====
-        Route::get('/user/peminjaman', [PeminjamanController::class, 'index'])->name('user.peminjaman.index');
-        Route::get('/user/peminjaman/create', [PeminjamanController::class, 'create'])->name('user.peminjaman.create');
-        Route::post('/user/peminjaman', [PeminjamanController::class, 'store'])->name('user.peminjaman.store');
-
-        // ===== PENGEMBALIAN =====
-        Route::get('/user/pengembalian', [PeminjamanController::class, 'pengembalianIndex'])->name('user.pengembalian.index');
-        Route::get('/user/pengembalian/{id}/proses', [PeminjamanController::class, 'pengembalianForm'])->name('user.pengembalian.form');
-        Route::put('/user/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('user.pengembalian.update');
-
-        Route::get('/user/items', [ItemCatalogController::class,'index'])->name('user.items.index');
-        Route::get('/user/items/create', [ItemCatalogController::class,'create'])->name('user.items.create');
-        Route::post('/user/items', [ItemCatalogController::class,'store'])->name('user.items.store');
-
-  Route::get('/user/loans', [LoanController::class,'index'])->name('user.loans.index');
-  Route::get('/user/loans/stats', [LoanController::class,'stats'])->name('user.loans.stats');
-
-  Route::get('/user/inbounds', [InboundController::class,'index'])->name('user.inbounds.index');
-  Route::get('/user/inbounds/create', [InboundController::class,'create'])->name('user.inbounds.create');
-  Route::post('/user/inbounds', [InboundController::class,'store'])->name('user.inbounds.store');
-
-        // Export PDF
+        // PDF
         Route::get('/inventaris/export-pdf', [InventarisController::class, 'exportPdf'])
             ->name('inventaris.exportPdf');
     });
 
-});
 
-require __DIR__.'/auth.php';
+    /*
+    |--------------------------------------------------------------------------
+    | USER
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('user')
+        ->middleware(['role:user'])
+        ->name('user.')
+        ->group(function () {
+
+        // ITEMS
+        Route::resource('items', ItemCatalogController::class);
+
+        // CART
+        Route::get('/cart', [CartController::class,'index'])->name('cart.index');
+        Route::post('/cart/add', [CartController::class,'add'])->name('cart.add');
+        Route::put('/cart/{id}', [CartController::class,'update'])->name('cart.update');
+        Route::delete('/cart/{id}', [CartController::class,'remove'])->name('cart.remove');
+        Route::post('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+
+        // LOANS USER
+        Route::get('/loans', [LoanController::class,'index'])->name('loans.index');
+        Route::get('/loans/stats', [LoanController::class,'stats'])->name('loans.stats');
+    });
+
+});

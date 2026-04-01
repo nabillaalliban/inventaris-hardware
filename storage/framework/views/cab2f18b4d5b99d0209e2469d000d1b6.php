@@ -496,11 +496,10 @@
 
   <div class="nav-right">
     <div class="user-chip">👤 <?php echo e(auth()->user()->name); ?></div>
-
-    <form action="<?php echo e(route('logout')); ?>" method="POST">
-      <?php echo csrf_field(); ?>
-      <button type="submit" class="btn-logout">Logout</button>
-    </form>
+<form method="POST" action="<?php echo e(route('logout')); ?>">
+    <?php echo csrf_field(); ?>
+    <button type="submit">Logout</button>
+</form>
   </div>
 </nav>
 
@@ -512,47 +511,45 @@
     <p class="menu-title">Menu</p>
     <ul>
         <?php if(auth()->user()->role == 'admin'): ?>
-            <li>
-                <a href="<?php echo e(route('admin.dashboard')); ?>"
-                   class="<?php echo e(request()->routeIs('admin.dashboard') ? 'active' : ''); ?>">
-                   📊 Dashboard
-                </a>
-                <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Data Barang</a></li>
-                <li><a href="<?php echo e(route('admin.loans.dashboard')); ?>">📊 Statistik Peminjaman</a></li>
-                <li><a href="<?php echo e(route('admin.loans.index')); ?>">📋 Riwayat Peminjaman</a></li>
-            </li>
-        <?php endif; ?>
-
-        <?php if(auth()->user()->role == 'user'): ?>
-            <li>
-                <a href="<?php echo e(route('user.inventaris.index')); ?>"
-                   class="<?php echo e(request()->routeIs('user.inventaris.*') ? 'active' : ''); ?>">
+           <li>
+                <a href="<?php echo e(route('admin.inventaris.index')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.inventaris.*') ? 'active' : ''); ?>">
                    📦 Inventaris
                 </a>
             </li>
 
             <li>
-                <a href="<?php echo e(route('user.categories.index')); ?>"
-                   class="<?php echo e(request()->routeIs('user.categories.*') ? 'active' : ''); ?>">
+                <a href="<?php echo e(route('admin.categories.index')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.categories.*') ? 'active' : ''); ?>">
                    🏷️ Kategori
                 </a>
             </li>
 
-            <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Barang</a></li>
-<?php if(auth()->user()->role == 'admin'): ?>
+            <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Barang</a></li>
   <li><a href="<?php echo e(route('admin.cart.index')); ?>">🛒 Keranjang</a></li>
-<?php endif; ?>
-<li><a href="<?php echo e(route('user.loans.index')); ?>">📌 Riwayat Peminjaman</a></li>
-<li><a href="<?php echo e(route('user.loans.stats')); ?>">📊 Statistik</a></li>
-<li><a href="<?php echo e(route('user.inbounds.index')); ?>">📥 Barang Masuk</a></li>
+
+<li><a href="<?php echo e(route('admin.loans.index')); ?>">📌 Riwayat Peminjaman</a></li>
+<li><a href="<?php echo e(route('admin.loans.stats')); ?>">📊 Statistik</a></li>
+<li><a href="<?php echo e(route('admin.inbounds.index')); ?>">📥 Barang Masuk</a></li>
 
 
 
             <li>
-                <a href="<?php echo e(route('inventaris.exportPdf')); ?>"
-                   class="<?php echo e(request()->routeIs('inventaris.exportPdf') ? 'active' : ''); ?>">
+                <a href="<?php echo e(route('admin.pdf.inventaris')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.pdf,inventaris') ? 'active' : ''); ?>">
                    📄 Export PDF
                 </a>
+            </li>
+        <?php endif; ?>
+
+        <?php if(auth()->user()->role == 'user'): ?>
+            <li>
+                <a href="<?php echo e(route('user.dashboard')); ?>"
+                   class="<?php echo e(request()->routeIs('user.dashboard') ? 'active' : ''); ?>">
+                   📊 Dashboard
+                </a>
+                <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Data Barang</a></li>
+                <li><a href="<?php echo e(route('user.loans.index')); ?>">📋 Riwayat Peminjaman</a></li>
             </li>
         <?php endif; ?>
     </ul>

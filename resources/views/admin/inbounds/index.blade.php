@@ -9,7 +9,7 @@
     </p>
   </div>
 
-  <a class="btn" href="{{ route('user.inbounds.create') }}">+ Tambah Barang Masuk</a>
+  <a class="btn" href="{{ route('admin.inbounds.create') }}">+ Tambah Barang Masuk</a>
 </div>
 
 @if(session('success'))

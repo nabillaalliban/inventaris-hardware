@@ -3,7 +3,7 @@
 @section('content')
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;">
   <h2 style="margin:0;color:#2e1065;font-weight:900;">Daftar Kategori</h2>
-  <a href="{{ route('user.categories.create') }}" class="btn">+ Tambah Kategori</a>
+  <a href="{{ route('admin.categories.create') }}" class="btn">+ Tambah Kategori</a>
 </div>
 
 @if(session('success'))
@@ -23,9 +23,9 @@
       <td>{{ $loop->iteration }}</td>
       <td>{{ $category->nama_kategori }}</td>
       <td style="white-space:nowrap;">
-        <a class="btn" href="{{ route('user.categories.edit', $category->id) }}">Edit</a>
+        <a class="btn" href="{{ route('admin.categories.edit', $category->id) }}">Edit</a>
 
-        <form action="{{ route('user.categories.destroy', $category->id) }}"
+        <form action="{{ route('admin.categories.destroy', $category->id) }}"
               method="POST"
               style="display:inline;"
               onsubmit="return confirm('Yakin hapus kategori?')">

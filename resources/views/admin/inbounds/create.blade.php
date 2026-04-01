@@ -1,4 +1,6 @@
-<?php $__env->startSection('content'); ?>
+@extends('layouts.app')
+
+@section('content')
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
   <div>
     <h2 style="margin:0;color:#2e1065;font-weight:900;">Tambah Barang Masuk</h2>
@@ -6,18 +8,18 @@
       Pilih barang dari daftar, lalu masukkan jumlah stok yang masuk
     </p>
   </div>
-  <a class="btn" href="<?php echo e(route('user.inbounds.index')); ?>">← Kembali</a>
+  <a class="btn" href="{{ route('admin.inbounds.index') }}">← Kembali</a>
 </div>
 
-<?php if($errors->any()): ?>
+@if ($errors->any())
   <div style="margin-top:10px;color:#b91c1c;font-weight:900;">
-    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $e): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <div>- <?php echo e($e); ?></div> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    @foreach($errors->all() as $e) <div>- {{ $e }}</div> @endforeach
   </div>
-<?php endif; ?>
+@endif
 
-<form action="<?php echo e(route('user.inbounds.store')); ?>" method="POST"
+<form action="{{ route('admin.inbounds.store') }}" method="POST"
       style="max-width:780px;margin-top:16px;">
-  <?php echo csrf_field(); ?>
+  @csrf
 
   <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;">
     <div style="grid-column:1/-1;">
@@ -25,9 +27,9 @@
       <select name="item_id" required
               style="width:100%;border:1px solid rgba(167,139,250,0.35);border-radius:14px;padding:12px;margin-top:6px;">
         <option value="">-- Pilih Barang --</option>
-        <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $it): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <option value="<?php echo e($it->id); ?>"><?php echo e($it->nama_barang); ?></option>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        @foreach($items as $it)
+          <option value="{{ $it->id }}">{{ $it->nama_barang }}</option>
+        @endforeach
       </select>
     </div>
 
@@ -52,9 +54,7 @@
 
   <div style="margin-top:14px;display:flex;gap:10px;align-items:center;">
     <button type="submit" class="btn">Simpan</button>
-    <a class="btn" href="<?php echo e(route('user.inbounds.index')); ?>">Batal</a>
+    <a class="btn" href="{{ route('admin.inbounds.index') }}">Batal</a>
   </div>
 </form>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/user/inbounds/create.blade.php ENDPATH**/ ?>
+@endsection

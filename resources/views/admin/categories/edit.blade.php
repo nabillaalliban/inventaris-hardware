@@ -11,7 +11,7 @@
         <p>Buat kategori baru untuk pengelompokan inventaris.</p>
       </div>
 
-      <a href="{{ route('user.categories.index') }}" class="btn-secondary">← Kembali</a>
+      <a href="{{ route('admin.categories.index') }}" class="btn-secondary">← Kembali</a>
     </div>
 
     <div class="form-body">
@@ -27,7 +27,7 @@
         </div>
       @endif
 
-      <form action="{{ route('user.categories.store') }}" method="POST">
+      <form action="{{ route('admin.categories.store') }}" method="POST">
         @csrf
 
         <div class="form-grid">
@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-actions">
-          <a href="{{ route('user.categories.index') }}" class="btn-secondary">Batal</a>
+          <a href="{{ route('admin.categories.index') }}" class="btn-secondary">Batal</a>
           <button type="submit" class="btn-primary">Simpan</button>
         </div>
 

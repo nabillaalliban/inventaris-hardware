@@ -1,9 +1,30 @@
-
-
 <?php $__env->startSection('content'); ?>
 
 
-<a href="<?php echo e(route('user.inventaris.create')); ?>" class="btn">+ Tambah Data</a>
+<a href="<?php echo e(route('admin.inventaris.create')); ?>" class="btn">+ Tambah Data</a>
+
+ <div class="toolbar">
+  <div class="searchbar">
+    <form method="GET" action="<?php echo e(route('admin.inventaris.index')); ?>" class="searchbox">
+      <span style="font-size:16px;">🔎</span>
+
+      <input
+        type="text"
+        name="q"
+        value="<?php echo e(request('q')); ?>"
+        placeholder="Cari lokasi / perangkat / kode (contoh: lab 201 kode 1)"
+        class="search-input"
+      >
+
+      <button class="btn btn-primary btn-sm" type="submit">Search</button>
+
+      <?php if(request('q')): ?>
+        <a href="<?php echo e(route('admin.inventaris.index')); ?>" class="btn btn-secondary btn-sm">Reset</a>
+      <?php endif; ?>
+    </form>
+  </div>
+</div>
+
 
 <div class="table-wrap">
   <table class="table">
@@ -28,9 +49,9 @@
       <td><?php echo e($item->tanggal_masuk); ?></td>
       <td><?php echo e($item->category?->nama_kategori ?? '-'); ?></td>
       <td style="white-space:nowrap;">
-        <a class="btn" href="<?php echo e(route('user.inventaris.edit', $item->id)); ?>">Edit</a>
+        <a class="btn" href="<?php echo e(route('admin.inventaris.edit', $item->id)); ?>">Edit</a>
 
-        <form action="<?php echo e(route('user.inventaris.destroy', $item->id)); ?>"
+        <form action="<?php echo e(route('admin.inventaris.destroy', $item->id)); ?>"
               method="POST"
               style="display:inline;"
               onsubmit="return confirm('Yakin hapus data ini?')">
@@ -48,4 +69,4 @@
 </table>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\inventaris-hardware\resources\views/user/inventaris/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/admin/inventaris/index.blade.php ENDPATH**/ ?>

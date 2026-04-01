@@ -156,10 +156,26 @@
       <a class="btnx" href="{{ route('admin.items.index') }}">Lanjut pilih barang</a>
 
       @if($cart->items->count())
-        <form action="{{ route('admin.cart.checkout') }}" method="POST" style="flex:1;">
-          @csrf
-          <button class="btnx btn-primary" type="submit">Ajukan</button>
-        </form>
+        <form action="{{ route('admin.cart.checkout') }}" method="POST" style="flex:1; display:flex; flex-direction:column; gap:8px;">
+  @csrf
+
+  <input type="text" name="nama_peminjam" placeholder="Nama Peminjam" required>
+
+  <select name="tipe_peminjam" required>
+    <option value="">-- Pilih Tipe --</option>
+    <option value="mahasiswa">Mahasiswa</option>
+    <option value="dosen">Dosen</option>
+    <option value="bidang1">Bidang 1</option>
+    <option value="bidang2">Bidang 2</option>
+    <option value="bidang3">Bidang 3</option>
+  </select>
+
+  <input type="date" name="tanggal_pinjam" required>
+
+  <input type="date" name="due_date">
+
+  <button class="btnx btn-primary" type="submit">Ajukan</button>
+</form>
       @endif
     </div>
   </div>

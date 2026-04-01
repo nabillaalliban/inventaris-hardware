@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,12 +12,12 @@ class InboundController extends Controller {
 
   public function index(){
     $logs = ItemInbound::with('item')->where('user_id',auth()->id())->latest()->get();
-    return view('user.inbounds.index', compact('logs'));
+    return view('admin.inbounds.index', compact('logs'));
   }
 
   public function create(){
     $items = Item::orderBy('nama_barang')->get();
-    return view('user.inbounds.create', compact('items'));
+    return view('admin.inbounds.create', compact('items'));
   }
 
   public function store(Request $r){
@@ -39,6 +39,6 @@ class InboundController extends Controller {
       Item::where('id',$r->item_id)->increment('stok',$r->qty_masuk);
     });
 
-    return redirect()->route('user.inbounds.index')->with('success','Barang masuk berhasil');
+    return redirect()->route('admin.inbounds.index')->with('success','Barang masuk berhasil');
   }
 }

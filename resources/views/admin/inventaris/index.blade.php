@@ -3,11 +3,11 @@
 @section('content')
 
 
-<a href="{{ route('user.inventaris.create') }}" class="btn">+ Tambah Data</a>
+<a href="{{ route('admin.inventaris.create') }}" class="btn">+ Tambah Data</a>
 
  <div class="toolbar">
   <div class="searchbar">
-    <form method="GET" action="{{ route('user.inventaris.index') }}" class="searchbox">
+    <form method="GET" action="{{ route('admin.inventaris.index') }}" class="searchbox">
       <span style="font-size:16px;">🔎</span>
 
       <input
@@ -21,7 +21,7 @@
       <button class="btn btn-primary btn-sm" type="submit">Search</button>
 
       @if(request('q'))
-        <a href="{{ route('user.inventaris.index') }}" class="btn btn-secondary btn-sm">Reset</a>
+        <a href="{{ route('admin.inventaris.index') }}" class="btn btn-secondary btn-sm">Reset</a>
       @endif
     </form>
   </div>
@@ -51,9 +51,9 @@
       <td>{{ $item->tanggal_masuk }}</td>
       <td>{{ $item->category?->nama_kategori ?? '-' }}</td>
       <td style="white-space:nowrap;">
-        <a class="btn" href="{{ route('user.inventaris.edit', $item->id) }}">Edit</a>
+        <a class="btn" href="{{ route('admin.inventaris.edit', $item->id) }}">Edit</a>
 
-        <form action="{{ route('user.inventaris.destroy', $item->id) }}"
+        <form action="{{ route('admin.inventaris.destroy', $item->id) }}"
               method="POST"
               style="display:inline;"
               onsubmit="return confirm('Yakin hapus data ini?')">

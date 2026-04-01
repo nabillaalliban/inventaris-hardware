@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Inventaris;
 use App\Models\Category;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -47,14 +48,14 @@ class InventarisController extends Controller
         ->latest()
         ->get();
 
-    return view('user.inventaris.index', compact('inventaris', 'q'));
+    return view('admin.inventaris.index', compact('inventaris', 'q'));
 }
 
     public function create()
     {
         $categories = Category::orderBy('nama_kategori')->get();
 
-        return view('user.inventaris.create', compact('categories'));
+        return view('admin.inventaris.create', compact('categories'));
     }
 
 
@@ -79,7 +80,7 @@ class InventarisController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('user.inventaris.index')
+        return redirect()->route('admin.inventaris.index')
             ->with('success', 'Data inventaris berhasil ditambahkan!');
     }
 
@@ -88,7 +89,7 @@ class InventarisController extends Controller
         $inventaris = Inventaris::findOrFail($id);
         $categories = Category::all();
 
-        return view('user.inventaris.edit', compact('inventaris', 'categories'));
+        return view('admin.inventaris.edit', compact('inventaris', 'categories'));
     }
 
      public function update(Request $request, $id)
@@ -113,7 +114,7 @@ class InventarisController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect()->route('user.inventaris.index')
+        return redirect()->route('admin.inventaris.index')
             ->with('success', 'Data inventaris berhasil diperbarui!');
     }
 
@@ -122,7 +123,7 @@ class InventarisController extends Controller
         $inventaris = Inventaris::findOrFail($id);
         $inventaris->delete();
 
-        return redirect()->route('user.inventaris.index')
+        return redirect()->route('admin.inventaris.index')
             ->with('success', 'Data inventaris berhasil dihapus!');
     }
 

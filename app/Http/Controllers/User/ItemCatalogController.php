@@ -13,13 +13,13 @@ class ItemCatalogController extends Controller
     public function index()
     {
         $items = Item::with('category')->latest()->get();
-        return view('user.items.index', compact('items'));
+        return view('admin.items.index', compact('items'));
     }
 
     public function create()
     {
         $categories = Category::orderBy('nama_kategori')->get();
-        return view('user.items.create', compact('categories'));
+        return view('admin.items.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -47,6 +47,6 @@ class ItemCatalogController extends Controller
             'foto'        => $path,
         ]);
 
-        return redirect()->route('user.items.index')->with('success', 'Barang berhasil ditambahkan.');
+        return redirect()->route('admin.items.index')->with('success', 'Barang berhasil ditambahkan.');
     }
 }

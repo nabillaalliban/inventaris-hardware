@@ -8,7 +8,7 @@
         <div style="font-weight:900;color:#2e1065;font-size:18px;">Tambah Barang</div>
         <div style="margin-top:4px;color:rgba(76,29,149,.75);font-weight:700;font-size:13px;">Isi data barang untuk peminjaman</div>
       </div>
-      <a class="btn" href="{{ route('user.items.index') }}">← Kembali</a>
+      <a class="btn" href="{{ route('admin.items.index') }}">← Kembali</a>
     </div>
 
     <div style="padding:22px;">
@@ -22,7 +22,7 @@
         </div>
       @endif
 
-      <form action="{{ route('user.items.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;">
@@ -65,7 +65,7 @@
         </div>
 
         <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
-          <a class="btn" href="{{ route('user.items.index') }}">Batal</a>
+          <a class="btn" href="{{ route('admin.items.index') }}">Batal</a>
           <button class="btn" type="submit" style="background:linear-gradient(90deg,#a78bfa,#c4b5fd);color:white;border:none;">Simpan</button>
         </div>
       </form>

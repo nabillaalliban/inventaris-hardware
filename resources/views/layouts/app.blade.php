@@ -496,11 +496,10 @@
 
   <div class="nav-right">
     <div class="user-chip">👤 {{ auth()->user()->name }}</div>
-
-    <form action="{{ route('logout') }}" method="POST">
-      @csrf
-      <button type="submit" class="btn-logout">Logout</button>
-    </form>
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit">Logout</button>
+</form>
   </div>
 </nav>
 
@@ -512,47 +511,45 @@
     <p class="menu-title">Menu</p>
     <ul>
         @if(auth()->user()->role == 'admin')
-            <li>
-                <a href="{{ route('admin.dashboard') }}"
-                   class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                   📊 Dashboard
-                </a>
-                <li><a href="{{ route('admin.items.index') }}">📦 Data Barang</a></li>
-                <li><a href="{{ route('admin.loans.dashboard') }}">📊 Statistik Peminjaman</a></li>
-                <li><a href="{{ route('admin.loans.index') }}">📋 Riwayat Peminjaman</a></li>
-            </li>
-        @endif
-
-        @if(auth()->user()->role == 'user')
-            <li>
-                <a href="{{ route('user.inventaris.index') }}"
-                   class="{{ request()->routeIs('user.inventaris.*') ? 'active' : '' }}">
+           <li>
+                <a href="{{ route('admin.inventaris.index') }}"
+                   class="{{ request()->routeIs('admin.inventaris.*') ? 'active' : '' }}">
                    📦 Inventaris
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('user.categories.index') }}"
-                   class="{{ request()->routeIs('user.categories.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.categories.index') }}"
+                   class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                    🏷️ Kategori
                 </a>
             </li>
 
-            <li><a href="{{ route('user.items.index') }}">📦 Barang</a></li>
-@if(auth()->user()->role == 'admin')
+            <li><a href="{{ route('admin.items.index') }}">📦 Barang</a></li>
   <li><a href="{{ route('admin.cart.index') }}">🛒 Keranjang</a></li>
-@endif
-<li><a href="{{ route('user.loans.index') }}">📌 Riwayat Peminjaman</a></li>
-<li><a href="{{ route('user.loans.stats') }}">📊 Statistik</a></li>
-<li><a href="{{ route('user.inbounds.index') }}">📥 Barang Masuk</a></li>
+
+<li><a href="{{ route('admin.loans.index') }}">📌 Riwayat Peminjaman</a></li>
+<li><a href="{{ route('admin.loans.stats') }}">📊 Statistik</a></li>
+<li><a href="{{ route('admin.inbounds.index') }}">📥 Barang Masuk</a></li>
 
 
 
             <li>
-                <a href="{{ route('inventaris.exportPdf') }}"
-                   class="{{ request()->routeIs('inventaris.exportPdf') ? 'active' : '' }}">
+                <a href="{{ route('admin.pdf.inventaris') }}"
+                   class="{{ request()->routeIs('admin.pdf,inventaris') ? 'active' : '' }}">
                    📄 Export PDF
                 </a>
+            </li>
+        @endif
+
+        @if(auth()->user()->role == 'user')
+            <li>
+                <a href="{{ route('user.dashboard') }}"
+                   class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
+                   📊 Dashboard
+                </a>
+                <li><a href="{{ route('user.items.index') }}">📦 Data Barang</a></li>
+                <li><a href="{{ route('user.loans.index') }}">📋 Riwayat Peminjaman</a></li>
             </li>
         @endif
     </ul>

@@ -9,7 +9,7 @@
         <p>Buat kategori baru untuk pengelompokan inventaris.</p>
       </div>
 
-      <a href="<?php echo e(route('user.categories.index')); ?>" class="btn-secondary">← Kembali</a>
+      <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn-secondary">← Kembali</a>
     </div>
 
     <div class="form-body">
@@ -25,7 +25,7 @@
         </div>
       <?php endif; ?>
 
-      <form action="<?php echo e(route('user.categories.store')); ?>" method="POST">
+      <form action="<?php echo e(route('admin.categories.store')); ?>" method="POST">
         <?php echo csrf_field(); ?>
 
         <div class="form-grid">
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-actions">
-          <a href="<?php echo e(route('user.categories.index')); ?>" class="btn-secondary">Batal</a>
+          <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn-secondary">Batal</a>
           <button type="submit" class="btn-primary">Simpan</button>
         </div>
 
@@ -53,4 +53,4 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/user/categories/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/admin/categories/create.blade.php ENDPATH**/ ?>

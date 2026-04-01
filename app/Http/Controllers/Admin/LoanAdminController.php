@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\LoanRequest;   // TAMBAHKAN INI
+use App\Models\LoanRequest;
+use App\Models\LoanRequestItem; // ✅ TAMBAH
+use Illuminate\Support\Facades\DB; // ✅ TAMBAH   // TAMBAHKAN INI
 
-class LoanController extends Controller
+class LoanAdminController extends Controller
 {
   public function dashboard()
   {
@@ -25,23 +27,14 @@ class LoanController extends Controller
     return view('admin.loans.dashboard', compact('pending','active','returned','overdue','topItems'));
   }
 
-  public function index(Request $r)
-  {
-    $status = $r->get('status','pending'); // pending/approved/returned/rejected/overdue
-    $q = LoanRequest::with('items.item.category','user')->latest();
+public function index()
+{
+    $loans = LoanRequest::all();
 
-    if($status === 'overdue'){
-      $q->where('status','approved')
-        ->whereNotNull('due_date')
-        ->where('due_date','<',now()->toDateString());
-    } else {
-      $q->where('status',$status);
-    }
+    $loans->load('items.item');
 
-    $loans = $q->get();
-    return view('admin.loans.index', compact('loans','status'));
-  }
-
+    return view('admin.loans.index', compact('loans'));
+}
   public function approve($id)
   {
     DB::transaction(function() use ($id){
