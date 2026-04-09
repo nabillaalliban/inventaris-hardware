@@ -131,7 +131,7 @@ class InventarisController extends Controller
     public function exportPdf()
     {
         $inventaris = Inventaris::with('category')->get();
-        $pdf = Pdf::loadView('pdf.inventaris', compact('inventaris'));
+        $pdf = Pdf::loadView('admin.pdf.inventaris', compact('inventaris'));
         return $pdf->download('laporan_inventaris.pdf');
     }
 }

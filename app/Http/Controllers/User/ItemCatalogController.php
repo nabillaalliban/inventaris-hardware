@@ -13,7 +13,7 @@ class ItemCatalogController extends Controller
     public function index()
     {
         $items = Item::with('category')->latest()->get();
-        return view('admin.items.index', compact('items'));
+        return view('user.items.index', compact('items'));
     }
 
     public function create()

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inventaris Hardware</title>
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
 <style>
 
 
@@ -495,9 +495,9 @@
   </div>
 
   <div class="nav-right">
-    <div class="user-chip">👤 {{ auth()->user()->name }}</div>
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
+    <div class="user-chip">👤 <?php echo e(auth()->user()->name); ?></div>
+<form method="POST" action="<?php echo e(route('logout')); ?>">
+    <?php echo csrf_field(); ?>
     <button type="submit">Logout</button>
 </form>
   </div>
@@ -510,48 +510,48 @@
    <aside class="sidebar">
     <p class="menu-title">Menu</p>
     <ul>
-        @if(auth()->user()->role == 'admin')
+        <?php if(auth()->user()->role == 'admin'): ?>
            <li>
-                <a href="{{ route('admin.inventaris.index') }}"
-                   class="{{ request()->routeIs('admin.inventaris.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('admin.inventaris.index')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.inventaris.*') ? 'active' : ''); ?>">
                    📦 Inventaris
                 </a>
             </li>
 
             <li>
-                <a href="{{ route('admin.categories.index') }}"
-                   class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('admin.categories.index')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.categories.*') ? 'active' : ''); ?>">
                    🏷️ Kategori
                 </a>
             </li>
 
-            <li><a href="{{ route('admin.items.index') }}">📦 Barang</a></li>
+            <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Barang</a></li>
 
-<li><a href="{{ route('admin.loans.index') }}">📌 Riwayat Peminjaman</a></li>
-<li><a href="{{ route('admin.loans.dashboard') }}">📊 Statistik</a></li>
-<li><a href="{{ route('admin.inbounds.index') }}">📥 Barang Masuk</a></li>
+<li><a href="<?php echo e(route('admin.loans.index')); ?>">📌 Riwayat Peminjaman</a></li>
+<li><a href="<?php echo e(route('admin.loans.dashboard')); ?>">📊 Statistik</a></li>
+<li><a href="<?php echo e(route('admin.inbounds.index')); ?>">📥 Barang Masuk</a></li>
 
 
 
             <li>
-                <a href="{{ route('admin.inventaris.exportPdf') }}"
-                   class="{{ request()->routeIs('admin.inventaris.exportPdf') ? 'active' : '' }}">
+                <a href="<?php echo e(route('admin.inventaris.exportPdf')); ?>"
+                   class="<?php echo e(request()->routeIs('admin.inventaris.exportPdf') ? 'active' : ''); ?>">
                    📄 Export PDF
                 </a>
             </li>
-        @endif
+        <?php endif; ?>
 
-        @if(auth()->user()->role == 'user')
+        <?php if(auth()->user()->role == 'user'): ?>
             <li>
-                <a href="{{ route('dashboard') }}"
-                   class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="<?php echo e(route('dashboard')); ?>"
+                   class="<?php echo e(request()->routeIs('dashboard') ? 'active' : ''); ?>">
                    📊 Dashboard
                 </a>
-                <li><a href="{{ route('user.items.index') }}">📦 Data Barang</a></li>
-                <li><a href="{{ route('user.cart.index') }}">🛒 Keranjang</a></li>
-                <li><a href="{{ route('user.loans.index') }}">📋 Riwayat Peminjaman</a></li>
+                <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Data Barang</a></li>
+                <li><a href="<?php echo e(route('user.cart.index')); ?>">🛒 Keranjang</a></li>
+                <li><a href="<?php echo e(route('user.loans.index')); ?>">📋 Riwayat Peminjaman</a></li>
             </li>
-        @endif
+        <?php endif; ?>
     </ul>
 </aside>
 
@@ -559,7 +559,7 @@
     <!-- CONTENT -->
     <main class="content">
         <div class="card">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
     </main>
 
@@ -567,3 +567,4 @@
 
 </body>
 </html>
+<?php /**PATH /opt/lampp/htdocs/inventaris-hardware/resources/views/layouts/app.blade.php ENDPATH**/ ?>

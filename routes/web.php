@@ -48,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
+        // PDF
+        Route::get('/inventaris/export-pdf', [InventarisController::class, 'exportPdf'])
+            ->name('inventaris.exportPdf');
+
         // INVENTARIS & CATEGORY
         Route::resource('inventaris', InventarisController::class);
         Route::resource('categories', CategoryController::class);
@@ -67,10 +71,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/loans/{id}/approve', [LoanAdminController::class,'approve'])->name('loans.approve');
         Route::post('/loans/{id}/reject', [LoanAdminController::class,'reject'])->name('loans.reject');
         Route::put('/loans/{id}/returned', [LoanAdminController::class,'markReturned'])->name('loans.returned');
-
-        // PDF
-        Route::get('/inventaris/export-pdf', [InventarisController::class, 'exportPdf'])
-            ->name('inventaris.exportPdf');
     });
 
 

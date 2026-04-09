@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;">
   <div>
     <h2 style="margin:0;color:#2e1065;font-weight:900;">Dashboard Admin</h2>
@@ -18,7 +16,7 @@
       <div class="icon">🏷️</div>
     </div>
     <div class="body">
-      <p class="value">{{ $jumlahKategori }}</p>
+      <p class="value"><?php echo e($jumlahKategori); ?></p>
       <p class="hint">Total kategori terdaftar</p>
     </div>
   </div>
@@ -29,7 +27,7 @@
       <div class="icon">📦</div>
     </div>
     <div class="body">
-      <p class="value">{{ $jumlahBarang }}</p>
+      <p class="value"><?php echo e($jumlahBarang); ?></p>
       <p class="hint">Total data inventaris</p>
     </div>
   </div>
@@ -40,7 +38,7 @@
       <div class="icon">✅</div>
     </div>
     <div class="body">
-      <p class="value">{{ $baik }}</p>
+      <p class="value"><?php echo e($baik); ?></p>
       <p class="hint">Perangkat dengan kondisi baik</p>
     </div>
   </div>
@@ -51,11 +49,13 @@
       <div class="icon">⚠️</div>
     </div>
     <div class="body">
-      <p class="value">{{ $rusak }}</p>
+      <p class="value"><?php echo e($rusak); ?></p>
       <p class="hint">Perangkat yang perlu perhatian</p>
     </div>
   </div>
 
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /opt/lampp/htdocs/inventaris-hardware/resources/views/admin/dashboard.blade.php ENDPATH**/ ?>
