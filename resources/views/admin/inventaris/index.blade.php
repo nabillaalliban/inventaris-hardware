@@ -2,10 +2,26 @@
 
 @section('content')
 
+<style>
+.toolbar{
+    display:flex;
+    justify-content: space-between; /* kiri & kanan */
+    align-items: center;
+    margin-bottom: 15px;
+}
 
-<a href="{{ route('admin.inventaris.create') }}" class="btn">+ Tambah Data</a>
+.searchbar{
+    flex:1;
+}
 
- <div class="toolbar">
+.top-action{
+    margin-left: auto;
+}
+</style>
+
+<div class="toolbar">
+
+  <!-- SEARCH (KIRI) -->
   <div class="searchbar">
     <form method="GET" action="{{ route('admin.inventaris.index') }}" class="searchbox">
       <span style="font-size:16px;">🔎</span>
@@ -14,7 +30,7 @@
         type="text"
         name="q"
         value="{{ request('q') }}"
-        placeholder="Cari lokasi / perangkat / kode (contoh: lab 201 kode 1)"
+        placeholder="Cari lokasi / perangkat / kode..."
         class="search-input"
       >
 
@@ -25,6 +41,14 @@
       @endif
     </form>
   </div>
+
+  <!-- TOMBOL (KANAN ATAS) -->
+  <div class="top-action">
+    <a href="{{ route('admin.inventaris.create') }}" class="btn">
+      + Tambah Data
+    </a>
+  </div>
+
 </div>
 
 
@@ -59,7 +83,7 @@
               onsubmit="return confirm('Yakin hapus data ini?')">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger" style="cursor:pointer;">Hapus</button>
+          <button type="submit" class="btn btn-danger">Hapus</button>
         </form>
       </td>
     </tr>
@@ -67,6 +91,4 @@
   </table>
 </div>
 
-
-</table>
 @endsection

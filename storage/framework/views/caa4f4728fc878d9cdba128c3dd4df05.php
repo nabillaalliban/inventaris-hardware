@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div style="max-width:820px;margin:40px auto;">
 
@@ -18,24 +16,24 @@
         </div>
       </div>
 
-      <a class="btn" href="{{ route('admin.inbounds.index') }}">← Kembali</a>
+      <a class="btn" href="<?php echo e(route('admin.inbounds.index')); ?>">← Kembali</a>
     </div>
 
     <!-- BODY -->
     <div style="padding:22px;">
 
-      @if ($errors->any())
+      <?php if($errors->any()): ?>
         <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);padding:12px 14px;border-radius:14px;margin-bottom:16px;color:#b91c1c;font-weight:700;">
           <ul style="margin:0;padding-left:18px;">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
         </div>
-      @endif
+      <?php endif; ?>
 
-      <form action="{{ route('admin.inbounds.store') }}" method="POST">
-        @csrf
+      <form action="<?php echo e(route('admin.inbounds.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
 
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;">
 
@@ -45,9 +43,9 @@
             <select name="item_id" required
                     style="width:100%;border:1px solid rgba(167,139,250,.35);border-radius:14px;padding:12px;margin-top:6px;background:#faf5ff;">
               <option value="">-- Pilih Barang --</option>
-              @foreach($items as $it)
-                <option value="{{ $it->id }}">{{ $it->nama_barang }}</option>
-              @endforeach
+              <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $it): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($it->id); ?>"><?php echo e($it->nama_barang); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
           </div>
 
@@ -76,7 +74,7 @@
 
         <!-- ACTION -->
         <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
-          <a class="btn" href="{{ route('admin.inbounds.index') }}">Batal</a>
+          <a class="btn" href="<?php echo e(route('admin.inbounds.index')); ?>">Batal</a>
           <button class="btn" type="submit" style="background:linear-gradient(90deg,#a78bfa,#c4b5fd);color:white;border:none;">
             Simpan
           </button>
@@ -87,4 +85,6 @@
   </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/admin/inbounds/create.blade.php ENDPATH**/ ?>

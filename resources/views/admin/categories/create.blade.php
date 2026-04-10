@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+.form-wrap {
+    margin-top: 40px; /* turun sedikit */
+}
+</style>
+
 <div class="form-wrap">
 
   <div class="form-shell">

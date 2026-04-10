@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div style="max-width:920px;margin:40px auto 0 auto;"> <!-- ditambah margin-top -->
 
@@ -10,54 +8,55 @@
         <div style="font-weight:900;color:#2e1065;font-size:18px;">Tambah Barang</div>
         <div style="margin-top:4px;color:rgba(76,29,149,.75);font-weight:700;font-size:13px;">Isi data barang untuk peminjaman</div>
       </div>
-      <a class="btn" href="{{ route('admin.items.index') }}">← Kembali</a>
+      <a class="btn" href="<?php echo e(route('admin.items.index')); ?>">← Kembali</a>
     </div>
 
     <div style="padding:22px;">
-      @if ($errors->any())
+      <?php if($errors->any()): ?>
         <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);padding:12px 14px;border-radius:14px;margin-bottom:16px;color:#b91c1c;font-weight:700;">
           <ul style="margin:0;padding-left:18px;">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
         </div>
-      @endif
+      <?php endif; ?>
 
-      <form action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+      <form action="<?php echo e(route('admin.items.store')); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
 
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;">
           <div>
             <label style="font-weight:800;color:#2e1065;font-size:13px;">Nama Barang</label>
-            <input name="nama_barang" value="{{ old('nama_barang') }}" class="input" placeholder="Contoh: HDMI" required>
+            <input name="nama_barang" value="<?php echo e(old('nama_barang')); ?>" class="input" placeholder="Contoh: HDMI" required>
           </div>
 
           <div>
             <label style="font-weight:800;color:#2e1065;font-size:13px;">Kategori</label>
             <select name="category_id" class="input" required>
               <option value="">-- Pilih Kategori --</option>
-              @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ old('category_id')==$cat->id ? 'selected' : '' }}>
-                  {{ $cat->nama_kategori }}
+              <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($cat->id); ?>" <?php echo e(old('category_id')==$cat->id ? 'selected' : ''); ?>>
+                  <?php echo e($cat->nama_kategori); ?>
+
                 </option>
-              @endforeach
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
           </div>
 
           <div>
             <label style="font-weight:800;color:#2e1065;font-size:13px;">Harga</label>
-            <input type="number" min="0" name="harga" value="{{ old('harga',0) }}" class="input" required>
+            <input type="number" min="0" name="harga" value="<?php echo e(old('harga',0)); ?>" class="input" required>
           </div>
 
           <div>
             <label style="font-weight:800;color:#2e1065;font-size:13px;">Stok</label>
-            <input type="number" min="0" name="stok" value="{{ old('stok',0) }}" class="input" required>
+            <input type="number" min="0" name="stok" value="<?php echo e(old('stok',0)); ?>" class="input" required>
           </div>
 
           <div>
             <label style="font-weight:800;color:#2e1065;font-size:13px;">Tanggal</label>
-            <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="input" required>
+            <input type="date" name="tanggal" value="<?php echo e(old('tanggal')); ?>" class="input" required>
           </div>
 
           <div>
@@ -67,7 +66,7 @@
         </div>
 
         <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
-          <a class="btn" href="{{ route('admin.items.index') }}">Batal</a>
+          <a class="btn" href="<?php echo e(route('admin.items.index')); ?>">Batal</a>
           <button class="btn" type="submit" style="background:linear-gradient(90deg,#a78bfa,#c4b5fd);color:white;border:none;">Simpan</button>
         </div>
       </form>
@@ -87,4 +86,6 @@
   .input:focus{ box-shadow:0 0 0 4px rgba(167,139,250,.18); }
 </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/admin/items/create.blade.php ENDPATH**/ ?>

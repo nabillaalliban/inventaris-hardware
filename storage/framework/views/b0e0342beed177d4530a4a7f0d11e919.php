@@ -81,7 +81,7 @@
 
 <div class="header">
     <h2>Laporan Inventaris Hardware</h2>
-    <p>Dicetak pada: {{ date('d M Y') }}</p>
+    <p>Dicetak pada: <?php echo e(date('d M Y')); ?></p>
 </div>
 
 <table>
@@ -95,30 +95,32 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($inventaris as $item)
+        <?php $__currentLoopData = $inventaris; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
-            <td>{{ $item->kode }}</td>
-            <td>{{ $item->nama_perangkat }}</td>
+            <td><?php echo e($item->kode); ?></td>
+            <td><?php echo e($item->nama_perangkat); ?></td>
             <td>
                 <span class="badge
-                    @if($item->kondisi == 'Baik') baik
-                    @elseif($item->kondisi == 'Rusak') rusak
-                    @else perbaikan
-                    @endif
+                    <?php if($item->kondisi == 'Baik'): ?> baik
+                    <?php elseif($item->kondisi == 'Rusak'): ?> rusak
+                    <?php else: ?> perbaikan
+                    <?php endif; ?>
                 ">
-                    {{ $item->kondisi }}
+                    <?php echo e($item->kondisi); ?>
+
                 </span>
             </td>
-            <td>{{ $item->lokasi }}</td>
-            <td>{{ date('d-m-Y', strtotime($item->tanggal_masuk)) }}</td>
+            <td><?php echo e($item->lokasi); ?></td>
+            <td><?php echo e(date('d-m-Y', strtotime($item->tanggal_masuk))); ?></td>
         </tr>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>
 </table>
 
 <div class="footer">
-    <p>© {{ date('Y') }} Sistem Inventaris</p>
+    <p>© <?php echo e(date('Y')); ?> Sistem Inventaris</p>
 </div>
 
 </body>
 </html>
+<?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/admin/pdf/inventaris.blade.php ENDPATH**/ ?>

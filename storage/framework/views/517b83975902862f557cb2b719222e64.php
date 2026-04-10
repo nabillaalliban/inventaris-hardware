@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <style>
 .cart-wrap{
@@ -119,41 +118,42 @@
     <!-- HEADER -->
     <div class="drawer-head">
       <h2>Keranjang</h2>
-      <div class="badge">{{ $cart->items->count() }}</div>
+      <div class="badge"><?php echo e($cart->items->count()); ?></div>
     </div>
 
     <!-- BODY -->
     <div class="drawer-body">
 
-      @forelse($cart->items as $row)
+      <?php $__empty_1 = true; $__currentLoopData = $cart->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
         <div class="cart-item">
-          <div class="ci-title">{{ $row->item->nama_barang }}</div>
+          <div class="ci-title"><?php echo e($row->item->nama_barang); ?></div>
           <div class="ci-sub">
-            Kategori: {{ $row->item->category?->nama_kategori ?? '-' }} •
-            Stok: {{ $row->item->stok }}
+            Kategori: <?php echo e($row->item->category?->nama_kategori ?? '-'); ?> •
+            Stok: <?php echo e($row->item->stok); ?>
+
           </div>
 
           <div style="display:flex;gap:8px;">
-            <form action="{{ route('user.cart.update',$row->id) }}" method="POST">
-              @csrf @method('PUT')
-              <input class="qty" type="number" name="qty" value="{{ $row->qty }}">
+            <form action="<?php echo e(route('user.cart.update',$row->id)); ?>" method="POST">
+              <?php echo csrf_field(); ?> <?php echo method_field('PUT'); ?>
+              <input class="qty" type="number" name="qty" value="<?php echo e($row->qty); ?>">
               <button class="btnx">Update</button>
             </form>
 
-            <form action="{{ route('user.cart.remove',$row->id) }}" method="POST">
-              @csrf @method('DELETE')
+            <form action="<?php echo e(route('user.cart.remove',$row->id)); ?>" method="POST">
+              <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
               <button class="btnx btn-danger">Hapus</button>
             </form>
           </div>
         </div>
-      @empty
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
         <p>Keranjang kosong</p>
-      @endforelse
+      <?php endif; ?>
 
       <!-- FORM PINJAM -->
       <div class="form-box" style="margin-top:16px;">
-        <form action="{{ route('user.cart.checkout') }}" method="POST">
-          @csrf
+        <form action="<?php echo e(route('user.cart.checkout')); ?>" method="POST">
+          <?php echo csrf_field(); ?>
 
           <input class="input" type="text" name="nama_peminjam" placeholder="Nama Peminjam" required>
 
@@ -183,4 +183,6 @@
   </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/rpl-1/Bia/inventaris-hardware/resources/views/user/cart/index.blade.php ENDPATH**/ ?>
