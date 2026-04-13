@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
 
         // ITEMS
         Route::resource('items', AdminItemController::class);
+        Route::delete('/admin/items/{id}', [AdminItemController::class, 'destroy'])
+    ->name('admin.items.destroy');
 
         // INBOUND
         Route::get('/inbounds', [InboundController::class,'index'])->name('inbounds.index');

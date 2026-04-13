@@ -481,6 +481,94 @@
 }
 
 
+.catalog-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap:20px;
+}
+
+.catalog-card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 12px 26px rgba(17,24,39,0.08);
+  transition:.2s;
+}
+
+.catalog-card:hover{
+  transform: translateY(-4px);
+}
+
+.catalog-image{
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#faf5ff;
+}
+
+.catalog-image img{
+  max-height:120px;
+  object-fit:contain;
+}
+
+.catalog-body{
+  padding:14px;
+}
+
+.catalog-body h3{
+  font-size:15px;
+  margin:0;
+  color:#2e1065;
+}
+
+.catalog-body p{
+  font-size:13px;
+  color:#6b21a8;
+}
+
+.catalog-action{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+}
+
+.catalog-action input{
+  width:60px;
+  padding:6px;
+  border-radius:8px;
+  border:1px solid rgba(167,139,250,.35);
+}
+
+.catalog-action button{
+  flex:1;
+  background:#a78bfa;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.catalog-action button:disabled{
+  background:#ddd;
+  cursor:not-allowed;
+}
+
+/* 🔥 BUTTON DELETE */
+.btn-danger{
+  border-color: rgba(239,68,68,0.35);
+  background: rgba(239,68,68,0.08);
+  color:#b91c1c;
+  border-radius:8px;
+  padding:6px 10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn-danger:hover{
+  background: rgba(239,68,68,0.15);
+}
 
 </style>
 
@@ -531,7 +619,7 @@
                 </a>
             </li>
 
-            <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Barang</a></li>
+            <li><a href="<?php echo e(route('admin.items.index')); ?>">📦 Tambah Barang</a></li>
 
 <li><a href="<?php echo e(route('admin.loans.index')); ?>">📌 Riwayat Peminjaman</a></li>
 <li><a href="<?php echo e(route('admin.loans.dashboard')); ?>">📊 Statistik</a></li>
@@ -549,7 +637,7 @@
 
         <?php if(auth()->user()->role == 'user'): ?>
             <li>
-                <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Data Barang</a></li>
+                <li><a href="<?php echo e(route('user.items.index')); ?>">📦 Barang</a></li>
                 <li><a href="<?php echo e(route('user.cart.index')); ?>">🛒 Keranjang</a></li>
                 <li><a href="<?php echo e(route('user.loans.index')); ?>">📋 Riwayat Peminjaman</a></li>
             </li>

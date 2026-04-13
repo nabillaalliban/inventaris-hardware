@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Item;
-use App\Models\Category;      
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller {
@@ -30,7 +30,15 @@ class ItemController extends Controller {
 
     $path = null;
     if($r->hasFile('foto')){
-      $path = $r->file('foto')->store('items','public');
+      if ($r->hasFile('foto')) {
+    $file = $r->file('foto');
+
+    $namaFile = $file->getClientOriginalName(); // ambil nama asli
+
+    $file->move(public_path('storage/items'), $namaFile);
+
+    $path = 'items/' . $namaFile; 
+}
     }
 
     Item::create([
@@ -44,5 +52,17 @@ class ItemController extends Controller {
 
     return redirect()->route('admin.items.index')->with('success','Barang dibuat');
   }
+ public function destroy($id)
+{
+    $item = Item::findOrFail($id);
+
+    if ($item->foto && file_exists(public_path('storage/' . $item->foto))) {
+        unlink(public_path('storage/' . $item->foto));
+    }
+
+    $item->delete();
+
+    return redirect()->back()->with('success', 'Barang berhasil dihapus');
+}
 }
 
