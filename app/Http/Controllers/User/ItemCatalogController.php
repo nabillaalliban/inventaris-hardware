@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class ItemCatalogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with('category')->latest()->get();
+        $search = trim((string) $request->query('search'));
+
+        $items = Item::with('category')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where('nama_barang', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->get();
+
         return view('user.items.index', compact('items'));
     }
 

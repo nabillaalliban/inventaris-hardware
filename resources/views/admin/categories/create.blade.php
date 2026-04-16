@@ -15,7 +15,6 @@
     <div class="form-top">
       <div>
         <h2>Tambah Kategori</h2>
-        <p>Buat kategori baru untuk pengelompokan inventaris.</p>
       </div>
 
       <a href="{{ route('admin.categories.index') }}" class="btn-secondary">← Kembali</a>
