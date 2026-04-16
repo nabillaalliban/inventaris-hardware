@@ -328,9 +328,7 @@
       <div>
         <div class="user-loans-hero__eyebrow">Peminjaman Saya</div>
         <h2 class="user-loans-hero__title">Riwayat Peminjaman</h2>
-        <p class="user-loans-hero__subtitle">
-          Lihat semua transaksi peminjaman yang kamu ajukan, lengkap dengan status, jatuh tempo, dan daftar barang.
-        </p>
+        
       </div>
 
       <div class="user-loans-hero__actions">

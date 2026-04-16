@@ -282,9 +282,7 @@
       <div>
         <div class="inbound-hero__eyebrow">Mutasi Stok Masuk</div>
         <h2 class="inbound-hero__title">Barang Masuk</h2>
-        <p class="inbound-hero__subtitle">
-          Pantau riwayat penambahan stok inventaris dengan tampilan yang lebih rapi, jelas, dan siap ditunjukkan saat presentasi.
-        </p>
+        
       </div>
 
       <div class="inbound-hero__actions">

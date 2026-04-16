@@ -279,9 +279,7 @@
       <div>
         <div class="user-items-hero__eyebrow">Katalog Inventaris</div>
         <h2 class="user-items-hero__title">Daftar Barang</h2>
-        <p class="user-items-hero__subtitle">
-          Pilih barang yang tersedia, tentukan jumlah yang dibutuhkan, lalu tambahkan ke keranjang untuk diajukan.
-        </p>
+        
       </div>
 
       <div class="user-items-count">

@@ -306,9 +306,7 @@
       <div>
         <div class="cart-hero__eyebrow">Keranjang Peminjaman</div>
         <h2 class="cart-hero__title">Keranjang</h2>
-        <p class="cart-hero__subtitle">
-          Tinjau barang yang sudah kamu pilih, atur jumlahnya, lalu lanjutkan pengajuan peminjaman dengan form yang lebih rapi.
-        </p>
+        
       </div>
 
       <div class="cart-count-card">

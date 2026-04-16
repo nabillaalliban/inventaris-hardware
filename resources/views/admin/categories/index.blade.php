@@ -278,9 +278,7 @@
       <div>
         <div class="category-hero__eyebrow">Manajemen Kategori</div>
         <h2 class="category-hero__title">Daftar Kategori</h2>
-        <p class="category-hero__subtitle">
-          Kelola kategori inventaris dengan tampilan yang lebih rapi, profesional, dan nyaman dibaca saat demonstrasi maupun penilaian.
-        </p>
+       
       </div>
 
       <div class="category-hero__actions">

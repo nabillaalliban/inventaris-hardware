@@ -286,9 +286,7 @@
       <div>
         <div class="items-hero__eyebrow">Inventaris Barang</div>
         <h2 class="items-hero__title">Barang</h2>
-        <p class="items-hero__subtitle">
-          Kelola data barang untuk peminjaman dengan tampilan yang lebih rapi, jelas, dan siap untuk presentasi.
-        </p>
+        
       </div>
 
       <div class="items-hero__actions">

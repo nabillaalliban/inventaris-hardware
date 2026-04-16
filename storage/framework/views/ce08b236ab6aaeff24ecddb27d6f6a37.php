@@ -371,9 +371,7 @@
       <div>
         <div class="loans-hero__eyebrow">Manajemen Peminjaman</div>
         <h2 class="loans-hero__title">Riwayat Peminjaman</h2>
-        <p class="loans-hero__subtitle">
-          Kelola approval, jatuh tempo, pengembalian, dan status peminjaman dengan tampilan yang lebih jelas dan rapi.
-        </p>
+
       </div>
 
       <div class="loans-hero__actions">
@@ -404,7 +402,6 @@
     <div class="loans-table-head">
       <div>
         <h3>Data Peminjaman</h3>
-        <p>Daftar pengajuan pinjam lengkap dengan peminjam, status, jatuh tempo, barang, dan aksi admin.</p>
       </div>
       <div class="loans-table-count"><?php echo e($loans->count()); ?> Data</div>
     </div>
